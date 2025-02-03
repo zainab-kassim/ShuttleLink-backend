@@ -14,7 +14,7 @@ dotenv.config();
 //Sign Up Controller Function
 export const signUpUser = async (req, res) => {
 
-    const { firstname, lastname, email, password, phoneNumber} = req.body;
+    const { firstname, lastname, email, password, phoneNumber, role} = req.body;
 
 
     // Check if user already exists
@@ -30,7 +30,8 @@ export const signUpUser = async (req, res) => {
         lastname,
         email,
         password: hashedPassword,
-        phoneNumber
+        phoneNumber,
+        role
     });
 
     // Save the user to the database
@@ -45,7 +46,7 @@ export const signUpUser = async (req, res) => {
     setRefreshToken(res, refreshToken);
 
     //Respond with success message
-    res.status(200).json({ message: 'User registered successfully', firstname });
+    res.status(200).json({ message: `${role} registered successfully`, firstname });
 
 }
 
