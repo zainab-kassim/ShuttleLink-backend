@@ -39,6 +39,15 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Password is required']
     },
+    role: {
+        type: String,
+        required: [true, 'Role is required'],
+        enum: {
+            values: ['passenger', 'driver'],
+            message: 'Role must be either passenger or driver'
+        }
+    }
+    
 }, { timestamps: true });
 
 export const User = mongoose.model('User', userSchema);

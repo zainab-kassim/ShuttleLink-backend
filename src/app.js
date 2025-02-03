@@ -21,7 +21,7 @@ app.use(express.json({ limit: '2mb' }));
 app.use('/api/sms', smsRoutes);
 
 //SMS related routes
-app.use('/api/user', userRoutes);
+app.use('/api/auth', userRoutes);
 
 // Error handling middleware
 app.use((err, res) => {
