@@ -30,8 +30,7 @@ const rideSchema = new Schema({
     },
     fare: {
         type: Number,
-        required: true,
-        min: 0
+        default:500
     }
 }, { timestamps: true });
 
