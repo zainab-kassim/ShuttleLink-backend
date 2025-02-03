@@ -3,12 +3,12 @@ const { Schema } = mongoose;
 
 // User Schema
 const rideSchema = new Schema({
-    passengerId: {
+    passenger: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', 
         required: true
     },
-    driverId: {
+    driver: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User', 
         required: true
