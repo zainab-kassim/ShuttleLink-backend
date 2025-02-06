@@ -46,7 +46,7 @@ export const signUpUser = async (req, res) => {
     setRefreshToken(res, refreshToken);
 
     //Respond with success message
-    res.status(200).json({ message: `${role} registered successfully`, firstname });
+    res.status(200).json({ message: `${newUser.role} registered successfully`, userId:newUser._id,role:newUser.role,firstname:newUser.firstname });
 
 }
 
@@ -73,7 +73,7 @@ export const signInUser = async (req, res) => {
         setAccessToken(res, accessToken);
         setRefreshToken(res, refreshToken);
 
-        return res.status(200).json({ message: 'Sign In successful', firstname: user.firstname });
+        return res.status(200).json({ message: 'Sign In successful', userId:user._id,user_email:user.email,role:user.role,firstname:user.firstname});
     } else {
         // Passwords don't match
         return res.status(400).json({ message: 'Invalid email or password', code: 'INVALID_EMAIL_OR_PASSWORD' });
