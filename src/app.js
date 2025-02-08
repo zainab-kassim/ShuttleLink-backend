@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 import express from 'express';
 import smsRoutes from './routes/sms.routes.js'
 import userRoutes from './routes/user.routes.js'
+import cors from 'cors'
+
 
 // Load environment variables if not in production
 if (process.env.NODE_ENV !== 'production') {
@@ -13,6 +15,9 @@ const app = express();
 
 //parsing data from form
 app.use(express.urlencoded({ extended: true }));
+
+//allow access from all origins 
+app.use(cors({ origin: "*", credentials: true }));
 
 // To parse incoming JSON in POST request body
 app.use(express.json({ limit: '2mb' }));
