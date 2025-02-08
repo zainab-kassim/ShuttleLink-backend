@@ -2,7 +2,9 @@ import dotenv from 'dotenv';
 import express from 'express';
 import smsRoutes from './routes/sms.routes.js'
 import userRoutes from './routes/user.routes.js'
+import rideRoutes from './routes/ride.routes.js'
 import cors from 'cors'
+
 
 
 // Load environment variables if not in production
@@ -25,8 +27,11 @@ app.use(express.json({ limit: '2mb' }));
 //SMS related routes
 app.use('/api/sms', smsRoutes);
 
-//SMS related routes
+//user related routes
 app.use('/api/auth', userRoutes);
+
+//ride related routes
+app.use('/api/ride', rideRoutes);
 
 // Error handling middleware
 app.use((err, res) => {

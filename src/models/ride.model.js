@@ -18,7 +18,7 @@ const rideSchema = new Schema({
         required: true,
         trim: true
     },
-    dropoffLocation: {
+    destination: {
         type: String,
         required: true,
         trim: true
