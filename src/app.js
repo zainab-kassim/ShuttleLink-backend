@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'
 import express from 'express';
 import smsRoutes from './routes/sms.routes.js'
 import userRoutes from './routes/user.routes.js'
