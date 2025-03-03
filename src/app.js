@@ -5,7 +5,7 @@ import userRoutes from './routes/user.routes.js'
 import rideRoutes from './routes/ride.routes.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import morgan from 'morgan' 
+import morgan from 'morgan'
 import passport from 'passport'
 
 
@@ -34,7 +34,10 @@ app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
 
 //allow access from all origins 
-app.use(cors({ origin: 'http://localhost:3000'||'https://shuttle-link-frontend.vercel.app', credentials: true }));
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://shuttle-link-frontend.vercel.app'],
+    credentials: true
+}));
 
 // To parse incoming JSON in POST request body
 app.use(express.json({ limit: '2mb' }));
