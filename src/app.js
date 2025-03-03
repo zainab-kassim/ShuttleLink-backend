@@ -34,7 +34,7 @@ app.use(passport.initialize());
 app.use(express.urlencoded({ extended: true }));
 
 //allow access from all origins 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'http://localhost:3000'||'https://shuttle-link-frontend.vercel.app', credentials: true }));
 
 // To parse incoming JSON in POST request body
 app.use(express.json({ limit: '2mb' }));
