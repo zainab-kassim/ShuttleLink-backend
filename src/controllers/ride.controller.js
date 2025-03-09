@@ -82,14 +82,12 @@ export const acceptRide = async (req, res) => {
         console.log(driverSocketId, passengerSocketId)
 
 
-        if (driverSocketId) {
-            io.to(driverSocketId).emit("ride_accepted", updatedRide);
-        }
+        if (driverSocketId && passengerSocketId) {
+            console.log('emitting')
+            io.to(driverSocketId).to(passengerSocketId).emit("ride_accepted", updatedRide);
 
-        if (passengerSocketId) {
-            io.to(passengerSocketId).emit("ride_accepted", updatedRide);
         }
-
+        console.log(driverSocketId, passengerSocketId)
 
         return res.status(201).json({
             message: "Ride accepted successfully",
