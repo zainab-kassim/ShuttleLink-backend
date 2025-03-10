@@ -84,9 +84,13 @@ export const acceptRide = async (req, res) => {
 
         if (driverSocketId && passengerSocketId) {
             console.log('emitting')
-            io.to(driverSocketId).to(passengerSocketId).emit("ride_accepted", updatedRide);
-
+            [driverSocketId, passengerSocketId].forEach((id) => {
+                io.to(id).emit("ride_accepted", updatedRide);
+            });
+            
         }
+
+
         console.log(driverSocketId, passengerSocketId)
 
         return res.status(201).json({
