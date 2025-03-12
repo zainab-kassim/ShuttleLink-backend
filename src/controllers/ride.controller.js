@@ -40,7 +40,7 @@ export const bookRide = async (req, res) => {
 
         // ✅ Notify online drivers about new ride
         Object.keys(onlineDrivers).forEach((driverSocketId) => {
-            io.to(driverSocketId).emit("new_ride_request",populatedRide);
+            io.to(driverSocketId).emit("new_ride_request", populatedRide);
         });
 
 
@@ -82,12 +82,12 @@ export const acceptRide = async (req, res) => {
         console.log(driverSocketId, passengerSocketId)
 
 
-        if (driverSocketId && passengerSocketId) {
-            console.log('emitting')
-            [driverSocketId, passengerSocketId].forEach((id) => {
-                io.to(id).emit("ride_accepted", updatedRide);
-            });
-            
+        if (passengerSocketId) {
+            console.log('Emitting ride_accepted event');
+       
+
+  
+            io.to(passengerSocketId).emit("ride_accepted", updatedRide);
         }
 
 
