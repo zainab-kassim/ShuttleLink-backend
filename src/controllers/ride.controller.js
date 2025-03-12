@@ -71,10 +71,13 @@ export const acceptRide = async (req, res) => {
                 driver: userId
             }, { new: true }
         ).populate("driver passenger");
+        
+
+        const io = getIo();
 
         const onlineDrivers = getOnlineDrivers();
         const onlinePassengers = getOnlinePassengers();
-        const io = getIo();
+
         const passengerSocketId = Object.keys(onlinePassengers).find(socketId => onlinePassengers[socketId].id.toString() === passengerId.toString());
         const driverSocketId = Object.keys(onlineDrivers).find(socketId => onlineDrivers[socketId].id.toString() === userId.toString());
 
@@ -95,9 +98,9 @@ export const acceptRide = async (req, res) => {
         });
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        return res.status(500).json({ message: "Internal server error", error: error.message });
     }
-
 };
 
 
