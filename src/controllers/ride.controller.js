@@ -83,15 +83,10 @@ export const acceptRide = async (req, res) => {
 
 
         if (passengerSocketId) {
-            console.log('Emitting ride_accepted event');
-       
-
-  
             io.to(passengerSocketId).emit("ride_accepted", updatedRide);
         }
 
 
-        console.log(driverSocketId, passengerSocketId)
 
         return res.status(201).json({
             message: "Ride accepted successfully",
