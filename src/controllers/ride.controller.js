@@ -95,6 +95,17 @@ export const acceptRide = async (req, res) => {
 
         const io = getIo();
 
+        if (!passengerSocketId) {
+            console.log("Passenger socket ID not found. Passenger might be offline.");
+            return res.status(400).json({ message: "Passenger is offline" });
+        }
+        if (!driverSocketId) {
+            console.log("Driver socket ID not found. Driver might be offline.");
+            return res.status(400).json({ message: "Driver is offline" });
+        }        
+
+
+        console.log(`Emitting ride_accepted to passenger socket ID: ${passengerSocketId}`);
         io.to(passengerSocketId).emit("ride_accepted", PassengerUpdatedRide);
 
         return res.status(201).json({
