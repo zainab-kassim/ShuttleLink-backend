@@ -1,6 +1,7 @@
 import { Ride } from "../models/ride.model.js";
 import { User } from "../models/user.model.js";
 import { getIo, getOnlineDrivers, getOnlinePassengers } from "../socket.js"; // Import Socket functions
+import { emitWithRetry } from "../utils/emitTrial.js";
 
 
 export const bookRide = async (req, res) => {
@@ -106,7 +107,8 @@ export const acceptRide = async (req, res) => {
 
 
         console.log(`Emitting ride_accepted to passenger socket ID: ${passengerSocketId}`);
-        io.to(passengerSocketId).emit("ride_accepted", PassengerUpdatedRide);
+        emitWithRetry(io, passengerId, PassengerUpdatedRide);
+
 
         return res.status(201).json({
             message: "Ride accepted successfully",
