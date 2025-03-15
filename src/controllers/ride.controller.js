@@ -71,9 +71,7 @@ export const acceptRide = async (req, res) => {
                 driver: userId
             }, { new: true }
         ).populate("driver passenger");
-        
 
-        const io = getIo();
 
         const onlineDrivers = getOnlineDrivers();
         const onlinePassengers = getOnlinePassengers();
@@ -84,12 +82,20 @@ export const acceptRide = async (req, res) => {
         console.log(`Ride ${updatedRide} accepted by Driver ${userId}`);
         console.log(driverSocketId, passengerSocketId)
 
-
-        if (passengerSocketId) {
-            io.to(passengerSocketId).emit("ride_accepted", updatedRide);
+        const PassengerUpdatedRide = {
+            driver: {
+                firstname: updatedRide.driver.firstname,
+                phonenumber: updatedRide.driver.phoneNumber
+            },
+            pickupLocation: updatedRide.pickupLocation,
+            destination: updatedRide.destination,
+            status: updatedRide.status,
+            fare: updatedRide.fare
         }
 
+        const io = getIo();
 
+        io.to(passengerSocketId).emit("ride_accepted", PassengerUpdatedRide);
 
         return res.status(201).json({
             message: "Ride accepted successfully",
