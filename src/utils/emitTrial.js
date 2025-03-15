@@ -1,3 +1,5 @@
+import { getIo, getOnlineDrivers, getOnlinePassengers } from "../socket.js"; // Import Socket functions
+
 export function emitWithRetry(io, passengerId, data, attempts = 5, delay = 500) {
     let tries = 0;
     const sendEvent = () => {
