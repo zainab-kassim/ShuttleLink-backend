@@ -1,7 +1,6 @@
 import { Ride } from "../models/ride.model.js";
 import { User } from "../models/user.model.js";
 import { getIo, getOnlineDrivers, getOnlinePassengers } from "../socket.js"; // Import Socket functions
-import { emitWithRetry } from "../utils/emitTrial.js";
 
 
 export const bookRide = async (req, res) => {
@@ -103,12 +102,10 @@ export const acceptRide = async (req, res) => {
         if (!driverSocketId) {
             console.log("Driver socket ID not found. Driver might be offline.");
             return res.status(400).json({ message: "Driver is offline" });
-        }        
+        }
 
 
-        console.log(`Emitting ride_accepted to passenger socket ID: ${passengerSocketId}`);
-        emitWithRetry(io, passengerId, PassengerUpdatedRide);
-
+        io.to(passengerSocketId).emit("ride_accepted", PassengerUpdatedRide);
 
         return res.status(201).json({
             message: "Ride accepted successfully",
