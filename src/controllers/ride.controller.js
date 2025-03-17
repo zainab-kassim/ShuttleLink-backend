@@ -30,10 +30,11 @@ export const bookRide = async (req, res) => {
         // Retrieve the ride with populated passenger details
         const populatedRide = await Ride.findById(ride._id).populate("passenger");
 
+        const io = getIo();
 
         // ✅ Get all online driver
         const onlineDrivers = getOnlineDrivers();
-        const io = getIo();
+       
 
 
 
@@ -73,6 +74,8 @@ export const acceptRide = async (req, res) => {
         ).populate("driver passenger");
 
 
+        const io = getIo();
+
         const onlineDrivers = getOnlineDrivers();
         const onlinePassengers = getOnlinePassengers();
 
@@ -93,7 +96,6 @@ export const acceptRide = async (req, res) => {
             fare: updatedRide.fare
         }
 
-        const io = getIo();
 
         if (!passengerSocketId) {
             console.log("Passenger socket ID not found. Passenger might be offline.");
